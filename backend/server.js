@@ -72,7 +72,20 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/event-types', eventTypeRoutes);
 
 // Health check endpoint (для Railway и мониторинга)
-app.get('/health', async (req, res) => {
+app.get('/health', (req, res) => {
+    // Простой health check для Railway - всегда возвращает 200 OK
+    res.status(200).json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        service: 'event-leaders-aggregator',
+        version: process.env.npm_package_version || '1.0.0',
+        environment: process.env.NODE_ENV,
+        uptime: process.uptime()
+    });
+});
+
+// Подробный health check с проверкой БД
+app.get('/health/detailed', async (req, res) => {
     try {
         // Для Railway: если нет DATABASE_URL, считаем что БД не требуется
         if (!process.env.DATABASE_URL) {
@@ -155,7 +168,18 @@ app.get('/admin', (req, res) => {
 // Инициализация базы данных
 async function startServer() {
     try {
-        await database.initializeDatabase();
+        // Пытаемся инициализировать БД, но не падаем если не получилось
+        if (process.env.DATABASE_URL) {
+            try {
+                await database.initializeDatabase();
+                console.log('✅ База данных инициализирована');
+            } catch (dbError) {
+                console.warn('⚠️ Не удалось инициализировать базу данных:', dbError.message);
+                console.log('ℹ️ Приложение будет работать в режиме без БД');
+            }
+        } else {
+            console.log('ℹ️ DATABASE_URL не настроен, работаем без базы данных');
+        }
         
         const server = app.listen(PORT, () => {
             console.log(`🚀 Сервер запущен на порту ${PORT}`);
