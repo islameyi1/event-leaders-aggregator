@@ -74,6 +74,19 @@ app.use('/api/event-types', eventTypeRoutes);
 // Health check endpoint (для Railway и мониторинга)
 app.get('/health', async (req, res) => {
     try {
+        // Для Railway: если нет DATABASE_URL, считаем что БД не требуется
+        if (!process.env.DATABASE_URL) {
+            return res.json({
+                status: 'healthy',
+                timestamp: new Date().toISOString(),
+                service: 'event-leaders-aggregator',
+                version: process.env.npm_package_version || '1.0.0',
+                environment: process.env.NODE_ENV,
+                database: 'not_configured',
+                message: 'База данных не настроена. Добавьте PostgreSQL в Railway.'
+            });
+        }
+        
         // Проверяем подключение к базе данных
         const dbHealthy = await database.checkDatabaseConnection();
         
@@ -95,6 +108,17 @@ app.get('/health', async (req, res) => {
             database: 'healthy'
         });
     } catch (error) {
+        // Если ошибка подключения к БД, но приложение может работать
+        if (error.message.includes('connect') || error.message.includes('DATABASE_URL')) {
+            return res.status(200).json({
+                status: 'degraded',
+                timestamp: new Date().toISOString(),
+                service: 'event-leaders-aggregator',
+                database: 'unavailable',
+                message: 'Приложение работает, но база данных недоступна'
+            });
+        }
+        
         res.status(500).json({
             status: 'error',
             timestamp: new Date().toISOString(),
