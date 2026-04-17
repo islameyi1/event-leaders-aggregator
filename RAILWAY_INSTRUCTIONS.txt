@@ -1,0 +1,61 @@
+🚀 ИНСТРУКЦИЯ ПО РАЗВЕРТЫВАНИЮ НА RAILWAY
+
+📁 СТРУКТУРА ПРОЕКТА:
+- Папка: event-leaders-aggregator
+- Бэкенд: backend/ (порт 3000)
+- Фронтенд: frontend/
+- Конфигурация: railway.toml, Dockerfile
+
+✅ ПРОЕКТ ГОТОВ К РАЗВЕРТЫВАНИЮ!
+
+📋 ШАГИ ДЛЯ РАЗВЕРТЫВАНИЯ:
+
+1. ЗАЛИТЬ НА GITHUB:
+   ```
+   git init
+   git add .
+   git commit -m "feat: готовый проект агрегатора ведущих"
+   git remote add origin https://github.com/ТВОЙ_ЮЗЕРНЕЙМ/event-leaders-aggregator.git
+   git push -u origin main
+   ```
+
+2. СОЗДАТЬ ПРОЕКТ НА RAILWAY:
+   - Открой https://railway.app
+   - Нажми "New Project"
+   - Выбери "Deploy from GitHub repo"
+   - Авторизуй GitHub
+   - Выбери репозиторий "event-leaders-aggregator"
+
+3. RAILWAY СДЕЛАЕТ ВСЕ АВТОМАТИЧЕСКИ:
+   - Установит зависимости
+   - Создаст PostgreSQL базу данных
+   - Запустит миграции
+   - Развернет приложение
+
+4. ПОЛУЧИТЬ URL:
+   После деплоя Railway выдаст URL вида:
+   https://event-leaders-aggregator-production.up.railway.app
+
+👤 ТЕСТОВЫЕ ПОЛЬЗОВАТЕЛИ (создаются автоматически):
+- Админ: admin@example.com / admin123
+- Ведущий: performer@example.com / performer123
+- Клиент: client@example.com / client123
+- Краснодар: krasnodar@example.com / krasnodar123
+
+🔧 ПРОВЕРКА РАБОТОСПОСОБНОСТИ:
+1. Открой Railway URL
+2. Проверь health check: /health
+3. Войди как клиент и протестируй
+
+⚙️ КОНФИГУРАЦИЯ ДЛЯ RAILWAY:
+- Порт: 3000
+- База данных: PostgreSQL
+- Health check: /health
+- Старт команда: cd backend && npm start
+
+📞 ЕСЛИ ВОЗНИКЛИ ПРОБЛЕМЫ:
+1. Проверь логи: railway logs
+2. Проверь переменные окружения
+3. Проверь health check
+
+🎉 ПРОЕКТ ГОТОВ К ИСПОЛЬЗОВАНИЮ В ИНТЕРНЕТЕ!

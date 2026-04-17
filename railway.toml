@@ -1,0 +1,21 @@
+[build]
+builder = "nixpacks"
+buildCommand = "cd backend && npm install"
+
+[deploy]
+startCommand = "cd backend && npm start"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[environments.production.variables]
+NODE_ENV = "production"
+PORT = "3000"
+
+# Автоматическое масштабирование
+[scale]
+min = 1
+max = 3
+memory = 512
+cpu = 0.5

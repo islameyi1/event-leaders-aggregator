@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Агрегатор ведущих мероприятий России</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-microphone-alt"></i> Ведущие России
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a href="/" class="nav-link text-white">
+                    <i class="fas fa-home"></i> На главную
+                </a>
+                <a href="/login" class="nav-link text-white">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4">Регистрация</h2>
+                        
+                        <div id="alerts"></div>
+                        
+                        <!-- Выбор роли -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">Выберите тип аккаунта:</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="card role-card text-center h-100" data-role="client">
+                                        <div class="card-body">
+                                            <i class="fas fa-user fa-3x mb-3 text-primary"></i>
+                                            <h5>Клиент</h5>
+                                            <p class="small text-muted">Ищете ведущего для мероприятия</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card role-card text-center h-100" data-role="performer">
+                                        <div class="card-body">
+                                            <i class="fas fa-user-tie fa-3x mb-3 text-warning"></i>
+                                            <h5>Ведущий</h5>
+                                            <p class="small text-muted">Предлагаете услуги ведущего</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card role-card text-center h-100" data-role="admin" style="opacity: 0.5;">
+                                        <div class="card-body">
+                                            <i class="fas fa-user-shield fa-3x mb-3 text-danger"></i>
+                                            <h5>Администратор</h5>
+                                            <p class="small text-muted">Только по приглашению</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Форма регистрации -->
+                        <form id="registerForm">
+                            <input type="hidden" id="role" name="role" value="client">
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="full_name" class="form-label">ФИО *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="full_name" 
+                                               placeholder="Иванов Иван Иванович" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <input type="email" class="form-control" id="email" 
+                                               placeholder="ваш@email.com" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label">Пароль *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="password" 
+                                               placeholder="Минимум 6 символов" required minlength="6">
+                                    </div>
+                                    <div class="form-text">Пароль должен содержать минимум 6 символов</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="confirm_password" class="form-label">Подтверждение пароля *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="confirm_password" 
+                                               placeholder="Повторите пароль" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Телефон</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-phone"></i>
+                                        </span>
+                                        <input type="tel" class="form-control" id="phone" 
+                                               placeholder="+7 (999) 123-45-67">
+                                    </div>
+                                    <div class="form-text">Формат: +7 (XXX) XXX-XX-XX</div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">Город</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-city"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="city" 
+                                               placeholder="Москва, Санкт-Петербург...">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Дополнительные поля для ведущих -->
+                            <div id="performerFields" style="display: none;">
+                                <hr class="my-4">
+                                <h5 class="mb-3">Информация для ведущих</h5>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="price_from" class="form-label">Минимальная цена (руб.)</label>
+                                        <input type="number" class="form-control" id="price_from" 
+                                               placeholder="10000" min="0">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="price_to" class="form-label">Максимальная цена (руб.)</label>
+                                        <input type="number" class="form-control" id="price_to" 
+                                               placeholder="50000" min="0">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Описание услуг</label>
+                                    <textarea class="form-control" id="description" rows="3" 
+                                              placeholder="Опишите ваш опыт, специализацию, особенности работы..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        Я соглашаюсь с <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">условиями использования</a> и политикой конфиденциальности
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center mt-4">
+                            <p>
+                                Уже есть аккаунт? 
+                                <a href="/login" class="fw-bold">Войти</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно с условиями -->
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Условия использования</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Общие положения</h6>
+                    <p>Платформа "Ведущие России" предоставляет услуги по поиску и бронированию ведущих мероприятий.</p>
+                    
+                    <h6>2. Регистрация пользователей</h6>
+                    <p>При регистрации вы предоставляете достоверную информацию о себе. Ведущие проходят модерацию администрацией.</p>
+                    
+                    <h6>3. Бронирование и оплата</h6>
+                    <p>Бронирование даты блокирует ее на 24 часа. Оплата услуг обсуждается напрямую между клиентом и ведущим.</p>
+                    
+                    <h6>4. Ответственность</h6>
+                    <p>Платформа не несет ответственности за качество услуг ведущих. Все споры решаются между сторонами.</p>
+                    
+                    <h6>5. Конфиденциальность</h6>
+                    <p>Мы защищаем ваши персональные данные и не передаем их третьим лицам без вашего согласия.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Понятно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Агрегатор ведущих мероприятий России</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/main.js"></script>
+    <script src="../js/register.js"></script>
+</body>
+</html>

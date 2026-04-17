@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Агрегатор ведущих мероприятий России</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-microphone-alt"></i> Ведущие России
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#search">Поиск ведущих</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">Как это работает</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">О проекте</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <a href="/login" class="btn btn-outline-light me-2">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </a>
+                    <a href="/register" class="btn btn-light">
+                        <i class="fas fa-user-plus"></i> Регистрация
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Герой-секция -->
+    <section class="hero-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Найдите идеального ведущего для вашего мероприятия</h1>
+                    <p class="lead mb-4">Более 500 профессиональных ведущих по всей России. Свадьбы, корпоративы, праздники, конференции.</p>
+                    <div class="d-flex gap-3">
+                        <a href="/register?role=client" class="btn btn-primary btn-lg">
+                            <i class="fas fa-search"></i> Найти ведущего
+                        </a>
+                        <a href="/register?role=performer" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-user-tie"></i> Стать ведущим
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Ведущий на мероприятии" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Поиск ведущих -->
+    <section id="search" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Найдите ведущего по вашим критериям</h2>
+            
+            <div class="card shadow">
+                <div class="card-body">
+                    <form id="searchForm">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="city" class="form-label">Город</label>
+                                <input type="text" class="form-control" id="city" placeholder="Москва, Санкт-Петербург...">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="eventType" class="form-label">Тип мероприятия</label>
+                                <select class="form-select" id="eventType">
+                                    <option value="">Любой тип</option>
+                                    <!-- Типы мероприятий будут загружены через JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="date" class="form-label">Дата мероприятия</label>
+                                <input type="date" class="form-control" id="date">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="priceRange" class="form-label">Бюджет (руб.)</label>
+                                <select class="form-select" id="priceRange">
+                                    <option value="">Любой бюджет</option>
+                                    <option value="0-10000">до 10 000 ₽</option>
+                                    <option value="10000-30000">10 000 - 30 000 ₽</option>
+                                    <option value="30000-50000">30 000 - 50 000 ₽</option>
+                                    <option value="50000-100000">50 000 - 100 000 ₽</option>
+                                    <option value="100000-">от 100 000 ₽</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-search"></i> Найти ведущих
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Результаты поиска -->
+            <div id="searchResults" class="mt-5">
+                <h3 class="mb-4">Популярные ведущие</h3>
+                <div class="row" id="performersList">
+                    <!-- Ведущие будут загружены через JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как это работает -->
+    <section id="how-it-works" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Как это работает</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="step-number mb-3">1</div>
+                            <h4 class="card-title">Регистрация</h4>
+                            <p class="card-text">Зарегистрируйтесь как клиент или ведущий. Это займет всего 2 минуты.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="step-number mb-3">2</div>
+                            <h4 class="card-title">Поиск и бронирование</h4>
+                            <p class="card-text">Найдите подходящего ведущего и забронируйте дату. Дата блокируется на 24 часа.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="step-number mb-3">3</div>
+                            <h4 class="card-title">Подтверждение</h4>
+                            <p class="card-text">Ведущий подтверждает бронирование. Все детали обсуждаются в личном кабинете.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Статистика -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <h2 class="display-4 fw-bold">500+</h2>
+                    <p class="lead">Ведущих по России</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h2 class="display-4 fw-bold">100+</h2>
+                    <p class="lead">Городов</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h2 class="display-4 fw-bold">1000+</h2>
+                    <p class="lead">Успешных мероприятий</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h2 class="display-4 fw-bold">4.8</h2>
+                    <p class="lead">Средний рейтинг</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О проекте -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">О проекте</h2>
+                    <p class="lead">Мы создали удобную платформу для поиска и бронирования ведущих мероприятий по всей России.</p>
+                    <p>Наша миссия - сделать процесс организации мероприятий простым и прозрачным. Мы проверяем всех ведущих, предоставляем систему рейтингов и отзывов, а также гарантируем безопасность сделок.</p>
+                    <div class="mt-4">
+                        <h5>Почему выбирают нас:</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i> Проверенные ведущие</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Прозрачное ценообразование</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Гарантия бронирования</li>
+                            <li><i class="fas fa-check text-success me-2"></i> Поддержка 24/7</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="Команда проекта" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5>Ведущие России</h5>
+                    <p>Агрегатор ведущих мероприятий по всей России. Надежно, удобно, профессионально.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>Навигация</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-white-50 text-decoration-none">Главная</a></li>
+                        <li><a href="#search" class="text-white-50 text-decoration-none">Поиск</a></li>
+                        <li><a href="#how-it-works" class="text-white-50 text-decoration-none">Как это работает</a></li>
+                        <li><a href="#about" class="text-white-50 text-decoration-none">О проекте</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Для пользователей</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/login" class="text-white-50 text-decoration-none">Вход</a></li>
+                        <li><a href="/register" class="text-white-50 text-decoration-none">Регистрация</a></li>
+                        <li><a href="/dashboard" class="text-white-50 text-decoration-none">Личный кабинет</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> info@vedushie.ru</li>
+                        <li><i class="fas fa-phone me-2"></i> +7 (800) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Москва, ул. Примерная, 1</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-white">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Агрегатор ведущих мероприятий России. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
